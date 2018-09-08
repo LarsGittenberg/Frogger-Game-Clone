@@ -21,15 +21,57 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+//Player Class skeleton/outline taken from walkthrough help by Matthew Cranford:
+//https://matthewcranford.com/arcade-game-walkthrough-part-2-pseudo-code/
+
+//hero class
+
+//hero constructor
+    //hero properties
+        //x position
+        //y position
+        //sprite
+
+
+//hero methods
+    //update position
+        //check for collision
+        //check for win
+    //render
+        //sprite
+        //x and y position
+    //handle keyboard input
+        //update player's x and y pos
+    //reset hero
+
 // Now write your own player class
+var Player = function() {
+    //player properties here
+}
 // This class requires an update(), render() and
 // a handleInput() method.
+Player.prototype.update = function() {
+    //do something
+}
 
+Player.prototype.render = function() {
+    //do something
+}
+
+Player.prototype.handleInput = function() {
+    //do something
+}
+
+Player.prototype.reset = function() {
+    //do reset
+}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
+var allEnemies = [new Enemy()];
 
+// Place the player object in a variable called player
+var player = new Player();
 
 
 // This listens for key presses and sends the keys to your
