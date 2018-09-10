@@ -75,20 +75,28 @@ Player.prototype.handleInput = function(direction) {
     console.log(direction);
 switch(direction) {
     case 'left':
+        //if statement prevents too far left
         if (this.x>0) {
             this.x -= this.moveInRow;
         }
         break;
     case 'right':
+        //if statement prevents too far right
         if(this.x<404) {
             this.x += this.moveInRow;
         }
         break;
     case 'up':
-        this.y -= this.moveInCol;
+        //if statement prevents too far up
+        if(this.y>0) {
+            this.y -= this.moveInCol;
+        }
         break;
     case 'down':
-        this.y += this.moveInCol;
+        //if statement prevents too far down
+        if(this.y<400) {
+            this.y += this.moveInCol;
+        }
         break;
     default:
         //code block
