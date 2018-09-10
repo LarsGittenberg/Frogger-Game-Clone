@@ -47,12 +47,12 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 var Player = function() {
     //player properties here
-    this.sprite = 'images/ship.png';
+    this.sprite = 'images/char-pink-girl.png';
     this.moveInRow = 101;
     this.moveInCol = 83;
 
     this.startx = this.moveInRow * 2;
-    this.starty = this.moveInCol * 5;
+    this.starty = (this.moveInCol * 5) -5 ;
 
     this.x = this.startx;
     this.y = this.starty;
@@ -75,7 +75,9 @@ Player.prototype.handleInput = function(direction) {
     console.log(direction);
 switch(direction) {
     case 'left':
-        this.x -= this.moveInRow;
+        if (this.x>0) {
+            this.x -= this.moveInRow;
+        }
         break;
     case 'right':
         this.x += this.moveInRow;
