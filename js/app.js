@@ -48,10 +48,15 @@ Enemy.prototype.render = function() {
 var Player = function() {
     //player properties here
     this.sprite = 'images/ship.png';
-    this.x = 0;
-    this.y = 0;
     this.moveInRow = 101;
     this.moveInCol = 83;
+
+    this.startx = this.moveInRow * 2;
+    this.starty = this.moveInCol * 5;
+
+    this.x = this.startx;
+    this.y = this.starty;
+
 
 }
 // This class requires an update(), render() and
