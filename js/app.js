@@ -21,7 +21,7 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-//Player Class skeleton/outline taken from walkthrough help by Matthew Cranford:
+//LG Player Class skeleton/outline taken from walkthrough help by Matthew Cranford:
 //https://matthewcranford.com/arcade-game-walkthrough-part-2-pseudo-code/
 
 //hero class
@@ -47,19 +47,43 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 var Player = function() {
     //player properties here
+    this.sprite = 'images/char-pink-girl.png';
+    this.x = 0;
+    this.y = 0;
+    this.rowMove = 101;
+    this.colMove = 83;
 }
 // This class requires an update(), render() and
 // a handleInput() method.
-Player.prototype.update = function() {
+Player.prototype.update = function(dt) {
     //do something
 }
 
 Player.prototype.render = function() {
     //do something
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
-Player.prototype.handleInput = function() {
+Player.prototype.handleInput = function(direction) {
     //do something
+    console.log(direction);
+switch(direction) {
+    case 'left':
+        this.x -= this.rowMove;
+        break;
+    case 'right':
+        this.x += this.rowMove;
+        break;
+    case 'up':
+        this.y -= this.colMove;
+        break;
+    case 'down':
+        this.y += this.colMove;
+        break;
+    default:
+        //code block
+}
+
 }
 
 Player.prototype.reset = function() {
@@ -81,8 +105,16 @@ document.addEventListener('keyup', function(e) {
         37: 'left',
         38: 'up',
         39: 'right',
-        40: 'down'
+        40: 'down',
+        // LG tested keycode 32: 'quackquack'
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
+    /* LG NOTE using bracket instead of dot method for property access
+    = this confused me for days!!!!
+    */
+    console.log(e.keyCode);
+    console.log(e);
+    console.log(e.hasOwnProperty('location'));// log false
+    console.log(e.code);
 });
