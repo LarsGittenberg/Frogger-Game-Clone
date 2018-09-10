@@ -80,7 +80,9 @@ switch(direction) {
         }
         break;
     case 'right':
-        this.x += this.moveInRow;
+        if(this.x<404) {
+            this.x += this.moveInRow;
+        }
         break;
     case 'up':
         this.y -= this.moveInCol;
