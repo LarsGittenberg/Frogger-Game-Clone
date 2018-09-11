@@ -1,4 +1,7 @@
+//LG solution
 // Enemies our player must avoid
+var noOfEnemies = 4;
+
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
@@ -6,6 +9,8 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+    this.x = -101;
+    this.y = -20;
 };
 
 // Update the enemy's position, required method for game
@@ -14,6 +19,9 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    if (this.x<505) {
+        this.x += 100*dt;
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -21,28 +29,31 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-//LG Player Class skeleton/outline taken from walkthrough help by Matthew Cranford:
-//https://matthewcranford.com/arcade-game-walkthrough-part-2-pseudo-code/
-
-//hero class
-
-//hero constructor
-    //hero properties
-        //x position
-        //y position
-        //sprite
+/*
+LG note: Player Class skeleton/outline/psuedocode taken from walkthrough help by Matthew Cranford:
+https://matthewcranford.com/arcade-game-walkthrough-part-2-pseudo-code/
 
 
-//hero methods
-    //update position
-        //check for collision
-        //check for win
-    //render
-        //sprite
-        //x and y position
-    //handle keyboard input
-        //update player's x and y pos
-    //reset hero
+hero class
+
+hero constructor
+    hero properties
+        x position
+        y position
+        sprite
+
+
+hero methods
+    update position
+        check for collision
+        check for win
+    render
+        sprite
+        x and y position
+    handle keyboard input
+        update player's x and y pos
+    reset hero
+*/
 
 // Now write your own player class
 var Player = function() {
@@ -71,36 +82,35 @@ Player.prototype.render = function() {
 }
 
 Player.prototype.handleInput = function(direction) {
-    //do something
-    console.log(direction);
-switch(direction) {
-    case 'left':
-        //if statement prevents too far left
-        if (this.x>0) {
-            this.x -= this.moveInRow;
-        }
-        break;
-    case 'right':
-        //if statement prevents too far right
-        if(this.x<404) {
-            this.x += this.moveInRow;
-        }
-        break;
-    case 'up':
-        //if statement prevents too far up
-        if(this.y>0) {
-            this.y -= this.moveInCol;
-        }
-        break;
-    case 'down':
-        //if statement prevents too far down
-        if(this.y<400) {
-            this.y += this.moveInCol;
-        }
-        break;
-    default:
-        //code block
-}
+
+    switch(direction) {
+        case 'left':
+            //if statement prevents too far left
+            if (this.x>0) {
+                this.x -= this.moveInRow;
+            }
+            break;
+        case 'right':
+            //if statement prevents too far right
+            if(this.x<404) {
+                this.x += this.moveInRow;
+            }
+            break;
+        case 'up':
+            //if statement prevents too far up
+            if(this.y>0) {
+                this.y -= this.moveInCol;
+            }
+            break;
+        case 'down':
+            //if statement prevents too far down
+            if(this.y<400) {
+                this.y += this.moveInCol;
+            }
+            break;
+        default:
+            //code block
+    }//end switch
 
 }
 
@@ -110,7 +120,17 @@ Player.prototype.reset = function() {
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-var allEnemies = [new Enemy()];
+/*var allEnemies = [];
+var bug1 = new Enemy();
+allEnemies.push(bug1);
+*/
+
+// Now instantiate your objects.
+// Place all enemy objects in an array called allEnemies
+var allEnemies = new Array(noOfEnemies);
+for (let i = 0; i < allEnemies.length; i++) {
+    allEnemies[i] = new Enemy();
+}
 
 // Place the player object in a variable called player
 var player = new Player();
