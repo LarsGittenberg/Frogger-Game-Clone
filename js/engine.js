@@ -93,6 +93,12 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
+
+        //LG note this is for right to left enemies
+        allEnemiesRight.forEach(function(enemyRight) {
+            enemyRight.update(dt);
+        });
+
         player.update();
     }
 
@@ -153,6 +159,11 @@ var Engine = (function(global) {
             enemy.render();
         });
 
+        //LG note this is for right to left enemies
+        allEnemiesRight.forEach(function(enemyRight) {
+            enemyRight.render();
+        });
+
         player.render();
     }
 
@@ -173,6 +184,7 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
+        'images/enemy-bug-2.png',
         'images/char-pink-girl.png',
         'images/char-boy.png',
         'images/ship.png'
