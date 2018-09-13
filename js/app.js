@@ -3,12 +3,12 @@
 //function that spits out number between 100-1000, which will be multiplied by 'dt',
 //to determine how fast an enemy travels in our game
 function randomRate() {
-    var rate = Math.floor((Math.random() * 1000) + 1);
+    var rate = Math.floor((Math.random() * 500) + 1);
     if (rate<200) {
         rate += 100;
     }
-    else if (rate>500) {
-        rate -= 400;
+    else if (rate>300) {
+        rate -= 100;
     }
     return rate;
 };
@@ -36,6 +36,10 @@ function randomRow() {
 var noOfEnemies = 3;
 var noOfEnemiesRight = 2;
 
+//win sound
+var audio = new Audio('audio/tada.wav');
+
+
 /* Our superclass, Enemy - this moves left to right!
 */
 var Enemy = function() {
@@ -49,8 +53,8 @@ var Enemy = function() {
     //this.y = yAdjustedPostion[1];
     this.y = yAdjustedPostion[randomRow()];
 
-    this.enemyLeftBoundary = -101;
-    this.enemyRightBoundary = 505;
+    this.allEnemyLeftBoundary = -101;
+    this.allEnemyRightBoundary = 505;
 
     //to establish an initial this.randomizedRate value, which will be changed by
     //update() method
@@ -64,15 +68,34 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    if (this.x<this.enemyRightBoundary) {
+    this.collisionCheck();
+
+    if (this.x<this.allEnemyRightBoundary) {
         this.x += this.randomizedRate*dt;
     }
     else {
     //reset position!!!!
-        this.x = this.enemyLeftBoundary;
+        this.x = this.allEnemyLeftBoundary;
         this.randomize();
     }
+
 };
+
+Enemy.prototype.collisionCheck = function() {
+        if (player.x < this.x + 60 &&
+        player.x + 37 > this.x &&
+        player.y < this.y + 25 &&
+        30 + player.y > this.y) {
+            //alert('enemy collides');
+            player.reset();
+            for (let enemy of allEnemies) {
+                enemy.reset();
+            }
+            for (let enemyRight of allEnemiesRight) {
+                enemyRight.reset();
+            }
+        }//end if
+}
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -84,19 +107,22 @@ Enemy.prototype.randomize = function() {
 
     //randomRow is a fx that spits random num between 1-3
     this.y = yAdjustedPostion[randomRow()];
-}
+};
 
 Enemy.prototype.reset = function() {
+    //reset
+    this.x = -101;
+    this.randomize();
 
-}
+};
 
 /*
-Our EnemyRight Subclass!!!!!! This enemy moves right to left!!!!!
+Our EnemyRight Subclass! This enemy moves right to left! And this bug is blue-green!!
 */
 var EnemyRight = function() {
     Enemy.call(this);
     this.sprite = 'images/enemy-bug-2.png';
-    this.x = 500;//was -101
+    this.x = 500;//was -101 for superclass Enemy
     this.y = yAdjustedPostion[3];
 }
 EnemyRight.prototype = Object.create(Enemy.prototype);
@@ -108,17 +134,27 @@ EnemyRight.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    if (this.x>this.enemyLeftBoundary) {
+    this.collisionCheck();//delegates to Enemy.prototype object that has this method
+
+    if (this.x>this.allEnemyLeftBoundary) {
         this.x -= this.randomizedRate*dt;
     }
     else {
     //reset position!!!!
-        this.x = this.enemyRightBoundary;
+        this.x = this.allEnemyRightBoundary;
+
         /* EnemyRight.prototype doesn't have randomize() method, but can
-        delegate to Enemy.prototype, which does have a randomize() fx
+        delegate to Enemy.prototype, which does have a randomize() fx...
+        which is why we can just call with the statement below:
         */
         this.randomize();
     }
+};
+
+EnemyRight.prototype.reset = function() {
+    //reset
+    this.x = 500;//was -101 for superclass Enemy
+    this.randomize();
 };
 
 
@@ -158,20 +194,47 @@ var Player = function() {
     this.startx = this.rowUnit * 2;
     this.starty = (this.colUnit * 5) - 20 ;
 
+    this.winY = -20;
+
     this.x = this.startx;
     this.y = this.starty;
 
-}
+};
+
 // This class requires an update(), render() and
 // a handleInput() method.
 Player.prototype.update = function(dt) {
-    //do something
-}
+    //check for collision
+/*
+    for (var enemy of allEnemies) {
+        console.log(Math.round(enemy.x) + ' ' + this.x)
+        if (this.y === enemy.y) {
+            if(this.x < (Math.round(enemy.x)+25) && this.x > (Math.round(enemy.x)-25)) {
+                console.log('collide!');// log not consistent...maybe put this in enemy.update() method?
+                alert('collide');
+            }
+        }
+    }
+    */
+    //check for win
+    if (this.y === this.winY) {
+        player.winSound();
+        player.reset();
+        alert('win');
+        for (let enemy of allEnemies) {
+            enemy.reset()
+        };
+        for (let enemyRight of allEnemiesRight) {
+            enemyRight.reset();
+        }
+
+    }
+};
 
 Player.prototype.render = function() {
     //do something
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 Player.prototype.handleInput = function(direction) {
 
@@ -203,12 +266,19 @@ Player.prototype.handleInput = function(direction) {
         default:
             //code block
     }//end switch
-    console.log('player in row ' + this.y)
+
+
+};
+
+Player.prototype.winSound = function() {
+    audio.play();
 }
 
 Player.prototype.reset = function() {
     //do reset
-}
+    this.x = this.startx;
+    this.y = this.starty;
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
