@@ -1,7 +1,3 @@
-frontend-nanodegree-arcade-game
-student submission
-===============================
-
 
 # OOJS Concepts: An Arcade Game Project
 
