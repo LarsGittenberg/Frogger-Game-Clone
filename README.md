@@ -5,7 +5,7 @@ student submission
 
 # OOJS Concepts: An Arcade Game Project
 
-- Project: constructing a web-browser based arcade game via HTML5/CSS3 and JS.
+- Project: constructing a web-browser based arcade game via HTML5 Canvas and JS.
 - This project is a student submission for [Udacity's Front End Web Development Nanodegree](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001).
 - It has been cloned from GitHub [here](https://github.com/udacity/fend-project-memory-game).
 - You can view Udacity's rubric/instructions for students in the [Udacity Rubric](https://review.udacity.com/#!/projects/2696458597/rubric).
