@@ -37,8 +37,10 @@ var noOfEnemies = 3;
 var noOfEnemiesRight = 2;
 
 //win sound
-var audio = new Audio('audio/tada.wav');
+var audioWin = new Audio('audio/tada.wav');
 
+//collide sound
+var audioCollide = new Audio('audio/bite.wav');
 
 /* Our superclass, Enemy - this moves left to right!
 */
@@ -86,14 +88,17 @@ Enemy.prototype.collisionCheck = function() {
         player.x + 37 > this.x &&
         player.y < this.y + 25 &&
         30 + player.y > this.y) {
-            //alert('enemy collides');
-            player.reset();
-            for (let enemy of allEnemies) {
-                enemy.reset();
-            }
-            for (let enemyRight of allEnemiesRight) {
-                enemyRight.reset();
-            }
+            window.requestAnimationFrame(function() {
+                audioCollide.play();
+                player.reset();
+                for (let enemy of allEnemies) {
+                    enemy.reset();
+                }
+                for (let enemyRight of allEnemiesRight) {
+                    enemyRight.reset();
+                }
+            });//end requestanimationframe
+
         }//end if
 }
 
@@ -113,8 +118,9 @@ Enemy.prototype.reset = function() {
     //reset
     this.x = -101;
     this.randomize();
-
 };
+
+
 
 /*
 Our EnemyRight Subclass! This enemy moves right to left! And this bug is blue-green!!
@@ -195,6 +201,7 @@ var Player = function() {
     this.starty = (this.colUnit * 5) - 20 ;
 
     this.winY = -20;
+    this.score = 0;
 
     this.x = this.startx;
     this.y = this.starty;
@@ -204,7 +211,8 @@ var Player = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 Player.prototype.update = function(dt) {
-    //check for collision
+    //check for collision - this implementation doesn't work, so needed the implementation
+    //I made in Enemy.prototype.collisionCheck
 /*
     for (var enemy of allEnemies) {
         console.log(Math.round(enemy.x) + ' ' + this.x)
@@ -215,20 +223,25 @@ Player.prototype.update = function(dt) {
             }
         }
     }
-    */
+*/
     //check for win
-    if (this.y === this.winY) {
-        player.winSound();
-        player.reset();
-        alert('win');
-        for (let enemy of allEnemies) {
-            enemy.reset()
-        };
-        for (let enemyRight of allEnemiesRight) {
-            enemyRight.reset();
-        }
+    if (player.y === player.winY) {
+        //
+        window.requestAnimationFrame(function() {
 
-    }
+            player.winSound();
+            player.reset();
+            player.score++;
+            alert('A win! Your score: ' + player.score);
+            for (let enemy of allEnemies) {
+                enemy.reset()
+            };
+            for (let enemyRight of allEnemiesRight) {
+                enemyRight.reset();
+            }
+
+        });//end requestAnimationFrame
+    }//end if
 };
 
 Player.prototype.render = function() {
@@ -237,7 +250,6 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(direction) {
-
     switch(direction) {
         case 'left':
             //if statement prevents too far left
@@ -266,12 +278,10 @@ Player.prototype.handleInput = function(direction) {
         default:
             //code block
     }//end switch
-
-
 };
 
 Player.prototype.winSound = function() {
-    audio.play();
+    audioWin.play();
 }
 
 Player.prototype.reset = function() {
