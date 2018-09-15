@@ -19,11 +19,11 @@
 
 ## Instructions
 You will not need to have access to the internet for the game to work. You will need a browser to open and play index.html. For basic functionality, the following files are needed:
--index.html
--js/app.js
--js/engine.js
--js/resources.js
--css/style.css
+- index.html
+- js/app.js
+- js/engine.js
+- js/resources.js
+- css/style.css
 
 Additionally, you'll also need to include all of the assets from the audio and most assets from the images folder.
 
