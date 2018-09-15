@@ -18,7 +18,7 @@
 
 
 ## Instructions
-You will not need to have access to the internet for the game to work. You will need a browser to open and play index.html. For basic functionality, the following files are needed:
+Clone or download this project onto your computer. You will not need to have access to the internet for the game to work. You will need a browser to open and play index.html. For basic functionality, the following files are needed:
 - index.html
 - js/app.js
 - js/engine.js
