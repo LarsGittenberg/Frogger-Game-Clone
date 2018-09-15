@@ -167,27 +167,6 @@ EnemyRight.prototype.reset = function() {
 /*
 LG note: Player Class skeleton/outline/psuedocode taken from walkthrough help by Matthew Cranford:
 https://matthewcranford.com/arcade-game-walkthrough-part-2-pseudo-code/
-
-
-hero class
-
-hero constructor
-    hero properties
-        x position
-        y position
-        sprite
-
-
-hero methods
-    update position
-        check for collision
-        check for win
-    render
-        sprite
-        x and y position
-    handle keyboard input
-        update player's x and y pos
-    reset hero
 */
 
 // Now write your own player class
@@ -211,25 +190,12 @@ var Player = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 Player.prototype.update = function(dt) {
-    //check for collision - this implementation doesn't work, so needed the implementation
-    //I made in Enemy.prototype.collisionCheck
-/*
-    for (var enemy of allEnemies) {
-        console.log(Math.round(enemy.x) + ' ' + this.x)
-        if (this.y === enemy.y) {
-            if(this.x < (Math.round(enemy.x)+25) && this.x > (Math.round(enemy.x)-25)) {
-                console.log('collide!');// log not consistent...maybe put this in enemy.update() method?
-                alert('collide');
-            }
-        }
-    }
-*/
     //check for win
-    if (player.y === player.winY) {
+    if (this.y === this.winY) {
         //
         window.requestAnimationFrame(function() {
 
-            player.winSound();
+            player.winSound();//LG note 'this.windSound()' won't work
             player.reset();
             player.score++;
             alert('A win! Your score: ' + player.score);
@@ -292,13 +258,6 @@ Player.prototype.reset = function() {
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-/*var allEnemies = [];
-var bug1 = new Enemy();
-allEnemies.push(bug1);
-*/
-
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
 var allEnemies = new Array(noOfEnemies);
 for (let i = 0; i < allEnemies.length; i++) {
     allEnemies[i] = new Enemy();
@@ -330,8 +289,4 @@ document.addEventListener('keyup', function(e) {
     /* LG NOTE using bracket instead of dot method for property access
     = this confused me for days!!!!
     */
-    //console.log(e.keyCode);
-    //console.log(e);
-    //console.log(e.hasOwnProperty('code'));//still logs false, why?
-    //console.log(e.code);
 });
