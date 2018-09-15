@@ -14,6 +14,7 @@
 - [Instructions](#instructions)
 - [Game Goal](#gamegoal)
 - [Game Behavior](#gamebehavior)
+- [Acknowledgments](#acknowledgements)
 
 
 
@@ -41,7 +42,8 @@ If you change the folder structure, you will need to change the file path src/hr
 - when player collides with an enemy bug, the game resets, game emits 'chomp' sound
 - when player reaches the top 'water zone', game emits 'victory' sound, the player receives a point. An alert window will notify the player of their 'win' and their current score. Closing the alert window allows player to continue, game resets keeping track of player wins/score
 
-
+## <a name="acknowledgments"></a>Acknowledgements
+Special thanks to Matthew Cranford for initial setup of player class in his [walkthrough](https://matthewcranford.com/arcade-game-walkthrough-part-2-pseudo-code/);
 
 
 
