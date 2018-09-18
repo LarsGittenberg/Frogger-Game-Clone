@@ -44,14 +44,14 @@ var audioCollide = new Audio('audio/bite.wav');
 
 /* Our superclass, Enemy - this moves left to right!
 */
-var Enemy = function() {
+var Enemy = function(locx) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-    this.x = -101;//was -101
+    this.x = locx; //was -101
     //this.y = yAdjustedPostion[1];
     this.y = yAdjustedPostion[randomRow()];
 
@@ -125,10 +125,10 @@ Enemy.prototype.reset = function() {
 /*
 Our EnemyRight Subclass! This enemy moves right to left! And this bug is blue-green!!
 */
-var EnemyRight = function() {
-    Enemy.call(this);
+var EnemyRight = function(locx) {
+    Enemy.call(this, locx);
     this.sprite = 'images/enemy-bug-2.png';
-    this.x = 500;//was -101 for superclass Enemy
+    //this.x = 500;//was -101 for superclass Enemy
     this.y = yAdjustedPostion[3];
 }
 EnemyRight.prototype = Object.create(Enemy.prototype);
@@ -260,13 +260,13 @@ Player.prototype.reset = function() {
 // Place all enemy objects in an array called allEnemies
 var allEnemies = new Array(noOfEnemies);
 for (let i = 0; i < allEnemies.length; i++) {
-    allEnemies[i] = new Enemy();
+    allEnemies[i] = new Enemy(-101);
 }
 
 // Place all enemyRight objects in an array called allEnemiesRight
 var allEnemiesRight = new Array(noOfEnemiesRight);
 for (let i = 0; i < allEnemiesRight.length; i++) {
-    allEnemiesRight[i] = new EnemyRight();
+    allEnemiesRight[i] = new EnemyRight(500);
 }
 
 
