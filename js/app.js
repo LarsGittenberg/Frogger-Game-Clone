@@ -33,8 +33,8 @@ function randomRow() {
 }
 
 // Enemies our player must avoid
-var noOfEnemies = 3;
-var noOfEnemiesRight = 2;
+var noOfEnemies = 4;
+var noOfEnemiesRight = 3;
 
 //win sound
 var audioWin = new Audio('audio/tada.wav');
@@ -194,18 +194,22 @@ Player.prototype.update = function(dt) {
     if (this.y === this.winY) {
         //
         window.requestAnimationFrame(function() {
+            var promise = new Promise(function(resolve){
+                player.winSound();//LG note 'this.windSound()' won't work
+                resolve();
+            }).then(function(){
+                player.reset();
+                player.score++;
+                alert('A win! Your score: ' + player.score);
+                for (let enemy of allEnemies) {
+                    enemy.reset()
+                };
+                for (let enemyRight of allEnemiesRight) {
+                    enemyRight.reset();
+                }
+            });
 
-            player.winSound();//LG note 'this.windSound()' won't work
-            player.reset();
-            player.score++;
-            alert('A win! Your score: ' + player.score);
-            for (let enemy of allEnemies) {
-                enemy.reset()
-            };
-            for (let enemyRight of allEnemiesRight) {
-                enemyRight.reset();
-            }
-
+            return promise;
         });//end requestAnimationFrame
     }//end if
 };
