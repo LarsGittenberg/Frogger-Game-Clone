@@ -6,6 +6,7 @@
 - Starter project has been cloned from GitHub [here](https://github.com/udacity/frontend-nanodegree-arcade-game).
 - You can view Udacity's rubric/instructions for students in the [Udacity Rubric](https://review.udacity.com/#!/projects/2696458597/rubric).
 - The student doesn't build the game from scratch. Much of the HTML5 canvas rendering code has been setup, but the game characters and their Object Oriented JavaScript properties will need to be coded by the student - this forms the bulk of the challenge. This [game setup guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true) was provided for the student.
+- [Demo Game](http://lawrencegetubig.com/arcade/index.html)
 
 
 
